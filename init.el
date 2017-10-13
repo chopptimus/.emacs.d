@@ -1,3 +1,6 @@
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+(setq package-enable-at-startup nil)
 (package-initialize)
 
 (unless (package-installed-p 'use-package)
@@ -7,16 +10,22 @@
 (use-package evil
   :ensure t
   :init
-  (setq evil-wants-C-u-scroll t)
-  (evil-mode 1)
-  :config
-  (define-key evil-insert-state-map (kbd "C-c") (kbd "<escape>")))
+  (setq evil-want-C-u-scroll t)
+  (evil-mode 1))
 
 (use-package atom-one-dark-theme
   :ensure t
   :init
   (load-theme 'atom-one-dark t))
 
-(global-linum-mode)
+;; Ease some of the gui pain
+(setq ring-bell-function 'ignore)
 (setq inhibit-startup-message t)
-(set-default-font "Source Code Pro-12")
+(menu-bar-mode -1)
+(toggle-scroll-bar -1)
+(tool-bar-mode -1)
+
+(set-default-font "Source Code Pro-15")
+
+;; General
+(global-linum-mode)
