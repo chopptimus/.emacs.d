@@ -1,3 +1,5 @@
-elpa
-auto-save-list
-
+/elpa/
+/auto-save-list/
+/backups/
+/savehist
+/custom.el
