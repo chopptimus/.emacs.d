@@ -1,7 +1,8 @@
 ;; General
-(setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
-(setq savehist-file "~/.emacs.d/savehist")
+(setq backup-directory-alist '(("." . "~/.emacs.d/backups"))
+      savehist-file "~/.emacs.d/savehist")
 (savehist-mode 1)
+(setq-default indent-tabs-mode nil)
 
 ;; Packages
 (require 'package)
@@ -18,23 +19,37 @@
 (use-package evil
   :ensure t
   :init
-  (setq evil-want-C-u-scroll t)
+  (progn
+    (setq evil-want-C-u-scroll t)
+    (evil-mode 1))
   :config
-  (evil-mode 1))
+  (progn
+    (define-key evil-normal-state-map (kbd "C-c C-x") 'evil-delete-buffer)))
 
 (use-package helm
    :ensure t
+   :diminish helm-mode
    :pin melpa-stable
    :init
    (progn
      (require 'helm-config)
+     (setq helm-ff-skip-boring-files t)
      (helm-mode))
    :bind
+   ("C-c h" . helm-mini)
    ("M-x" . helm-M-x)
    ("C-h a" . helm-apropos))
 
 (use-package projectile
-  :ensure t)
+  :ensure t
+  :diminish projectile-mode
+  :config
+  (projectile-global-mode))
+
+(use-package helm-projectile
+  :ensure t
+  :bind
+  ("C-c p p" . helm-projectile-switch-project))
 
 (use-package cider
   :ensure t)
@@ -42,17 +57,17 @@
 (use-package rainbow-delimiters
   :ensure t)
 
-(use-package dracula-theme
+(use-package atom-one-dark-theme
   :ensure t
   :init
-  (load-theme 'dracula t))
+  (load-theme 'atom-one-dark t))
 
 ;; Hooks
 (defun add-hook-m (hs fn) (mapc (lambda (h) (add-hook h fn)) hs))
 
 (defun my-prog-mode ()
   (linum-mode)
-  (lambda () (modify-syntax-entry ?_ "w")))
+  (modify-syntax-entry ?_ "w"))
 
 (defun my-lisp-mode ()
   (modify-syntax-entry ?- "w")
