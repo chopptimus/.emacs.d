@@ -24,7 +24,9 @@
     (evil-mode 1))
   :config
   (progn
-    (define-key evil-normal-state-map (kbd "C-c C-x") 'evil-delete-buffer)))
+    (define-key evil-normal-state-map (kbd "C-c C-x") 'evil-delete-buffer)
+    (define-key evil-insert-state-map (kbd "C-c") 'evil-force-normal-state)
+    (define-key evil-visual-state-map (kbd "C-c") 'evil-force-normal-state)))
 
 (use-package helm
    :ensure t
