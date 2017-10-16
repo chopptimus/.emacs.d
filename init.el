@@ -2,7 +2,19 @@
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups"))
       savehist-file "~/.emacs.d/savehist")
 (savehist-mode 1)
+
 (setq-default indent-tabs-mode nil)
+
+(setq custom-file "~/.emacs.d/custom.el")
+(load custom-file)
+
+;; ui
+(setq ring-bell-function 'ignore)
+(setq inhibit-startup-message t)
+(menu-bar-mode -1)
+(toggle-scroll-bar -1)
+(tool-bar-mode -1)
+(blink-cursor-mode 0)
 
 ;; Packages
 (require 'package)
@@ -19,28 +31,39 @@
 (use-package evil
   :ensure t
   :init
-  (progn
-    (setq evil-want-C-u-scroll t)
-    (evil-mode 1))
+  (setq evil-want-C-u-scroll t)
   :config
   (progn
+    (evil-mode 1)
     (define-key evil-normal-state-map (kbd "C-c C-x") 'evil-delete-buffer)
     (define-key evil-insert-state-map (kbd "C-c") 'evil-force-normal-state)
     (define-key evil-visual-state-map (kbd "C-c") 'evil-force-normal-state)))
 
-(use-package helm
-   :ensure t
-   :diminish helm-mode
-   :pin melpa-stable
-   :init
-   (progn
-     (require 'helm-config)
-     (setq helm-ff-skip-boring-files t)
-     (helm-mode))
-   :bind
-   ("C-c h" . helm-mini)
-   ("M-x" . helm-M-x)
-   ("C-h a" . helm-apropos))
+;; sensible undo
+(use-package undo-tree
+  :ensure t
+  :diminish undo-tree-mode)
+
+(use-package ivy
+  :ensure t
+  :diminish ivy-mode
+  :config
+  (ivy-mode 1)
+  (setq ivy-use-virtual-buffers t))
+
+(use-package counsel
+  :ensure t
+  :diminish counsel-mode
+  :config
+  (counsel-mode 1)
+  :bind
+  ("M-x" . counsel-M-x)
+  ("C-x C-f" . counsel-find-file)
+  ("<f1> f" . counsel-describe-function)
+  ("<f1> v" . counsel-describe-variable)
+  ("<f1> l" . counsel-find-library)
+  ("<f2> i" . counsel-info-lookup-symbol)
+  ("<f2> u" . counsel-unicode-char))
 
 (use-package projectile
   :ensure t
@@ -48,10 +71,10 @@
   :config
   (projectile-global-mode))
 
-(use-package helm-projectile
+(use-package counsel-projectile
   :ensure t
-  :bind
-  ("C-c p p" . helm-projectile-switch-project))
+  :config
+  (counsel-projectile-on))
 
 (use-package cider
   :ensure t)
@@ -77,13 +100,3 @@
 
 (add-hook-m '(clojure-mode-hook emacs-lisp-mode-hook) 'my-lisp-mode)
 (add-hook 'prog-mode-hook 'my-prog-mode)
-
-(setq ring-bell-function 'ignore)
-(setq inhibit-startup-message t)
-(menu-bar-mode -1)
-(toggle-scroll-bar -1)
-(tool-bar-mode -1)
-(blink-cursor-mode 0)
-
-(setq custom-file "~/.emacs.d/custom.el")
-(load custom-file)
