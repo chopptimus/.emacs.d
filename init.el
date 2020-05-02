@@ -15,6 +15,8 @@
 (tool-bar-mode -1)
 (blink-cursor-mode 0)
 
+(column-number-mode)
+
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (add-to-list 'package-archives
