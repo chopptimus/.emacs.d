@@ -36,6 +36,9 @@
   (progn
     (evil-mode 1)))
 
+(use-package helm
+  :ensure t)
+
 (use-package magit
   :ensure t)
 
