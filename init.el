@@ -42,5 +42,15 @@
 (use-package evil-magit
   :ensure t)
 
+(use-package lispy
+  :ensure t
+  :init
+  (add-hook 'emacs-lisp-mode-hook #'lispy-mode))
+
+(use-package lispyville
+  :ensure t
+  :init
+  (add-hook 'lispy-mode-hook #'lispyville-mode))
+
 (use-package cider
   :ensure t)
