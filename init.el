@@ -43,15 +43,17 @@
   :ensure t)
 
 (use-package lispy
-  :ensure t
-  :init
-  (add-hook 'emacs-lisp-mode-hook #'lispy-mode)
-  (add-hook 'clojure-mode-hook #'lispy-mode))
+  :ensure t)
 
 (use-package lispyville
   :ensure t
   :init
-  (add-hook 'lispy-mode-hook #'lispyville-mode))
+  (add-hook 'lispy-mode-hook #'lispyville-mode)
+  (lispyville-set-key-theme
+   '(operators
+     c-w
+     (escape insert)
+     (additional-movement normal visual motion))))
 
 (use-package cider
   :ensure t)
