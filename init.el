@@ -45,7 +45,8 @@
 (use-package lispy
   :ensure t
   :init
-  (add-hook 'emacs-lisp-mode-hook #'lispy-mode))
+  (add-hook 'emacs-lisp-mode-hook #'lispy-mode)
+  (add-hook 'clojure-mode-hook #'lispy-mode))
 
 (use-package lispyville
   :ensure t
