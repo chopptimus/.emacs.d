@@ -1,4 +1,3 @@
-;; General
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups"))
       savehist-file "~/.emacs.d/savehist")
 (savehist-mode 1)
@@ -18,9 +17,10 @@
 (column-number-mode)
 
 (require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (add-to-list 'package-archives
-	     '("melpa-stable" . "https://stable.melpa.org/packages/"))
+             '("melpa" . "https://melpa.org/packages/"))
+(add-to-list 'package-archives
+             '("melpa-stable" . "https://stable.melpa.org/packages/"))
 (setq package-enable-at-startup nil)
 (package-initialize)
 
