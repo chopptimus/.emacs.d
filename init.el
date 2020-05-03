@@ -13,7 +13,7 @@
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
 (blink-cursor-mode 0)
-
+(show-paren-mode 1)
 (column-number-mode)
 
 (require 'package)
