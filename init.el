@@ -50,7 +50,8 @@
 (use-package lispyville
   :ensure t
   :init
-  (add-hook 'lispy-mode-hook #'lispyville-mode)
+  (add-hook 'emacs-lisp-mode-hook #'lispyville-mode)
+  (add-hook 'clojure-mode-hook #'lispyville-mode)
   (lispyville-set-key-theme
    '(operators
      c-w
