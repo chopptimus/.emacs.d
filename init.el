@@ -55,7 +55,10 @@
    '(operators
      c-w
      (escape insert)
-     (additional-movement normal visual motion))))
+     (additional-movement normal visual motion)
+     slurp/barf-cp
+     wrap
+     additional)))
 
 (use-package cider
   :ensure t)
