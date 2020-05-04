@@ -33,8 +33,7 @@
   :init
   (setq evil-want-C-u-scroll t)
   :config
-  (progn
-    (evil-mode 1)))
+  (evil-mode 1))
 
 (use-package helm
   :ensure t)
