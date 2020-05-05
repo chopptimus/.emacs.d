@@ -47,22 +47,16 @@
 (use-package evil-magit
   :ensure t)
 
-(use-package lispy
-  :ensure t)
-
-(use-package lispyville
+(use-package paredit
   :ensure t
   :init
-  (add-hook 'emacs-lisp-mode-hook #'lispyville-mode)
-  (add-hook 'clojure-mode-hook #'lispyville-mode)
-  (lispyville-set-key-theme
-   '(operators
-     c-w
-     (escape insert)
-     (additional-movement normal visual motion)
-     slurp/barf-cp
-     wrap
-     additional)))
+  (add-hook 'emacs-lisp-mode-hook #'paredit-mode)
+  (add-hook 'clojure-mode-hook #'paredit-mode))
+
+(use-package evil-cleverparens
+  :ensure t
+  :init
+  (add-hook 'paredit-mode-hook #'evil-cleverparens-mode))
 
 (use-package cider
   :ensure t)
