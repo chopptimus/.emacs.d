@@ -4,9 +4,6 @@
 
 (setq-default indent-tabs-mode nil)
 
-(setq custom-file "~/.emacs.d/custom.el")
-(load custom-file)
-
 (setq ring-bell-function 'ignore)
 (setq inhibit-startup-message t)
 (menu-bar-mode -1)
@@ -26,6 +23,9 @@
              '("melpa-stable" . "https://stable.melpa.org/packages/"))
 (setq package-enable-at-startup nil)
 (package-initialize)
+
+(setq custom-file "~/.emacs.d/custom.el")
+(load custom-file)
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
