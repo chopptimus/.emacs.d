@@ -58,5 +58,15 @@
   :init
   (add-hook 'paredit-mode-hook #'evil-cleverparens-mode))
 
+(defun cider-evil-eval-last-sexp ()
+  (interactive)
+  (forward-char)
+  (cider-eval-last-sexp)
+  (backward-char))
+
 (use-package cider
-  :ensure t)
+  :ensure t
+  :config
+  (evil-define-key 'normal cider-mode-map
+    (kbd "C-x C-e") 'cider-evil-eval-last-sexp
+    (kbd "C-c C-e") 'cider-evil-eval-last-sexp))
