@@ -74,9 +74,21 @@
   (cider-eval-last-sexp)
   (backward-char))
 
+(defun evil-cider-doc ()
+  (setq-local evil-lookup-func 'cider-doc))
+
 (use-package cider
   :ensure t
-  :config
-  (evil-define-key 'normal cider-mode-map
-    (kbd "C-x C-e") 'cider-evil-eval-last-sexp
-    (kbd "C-c C-e") 'cider-evil-eval-last-sexp))
+  :init
+  (add-hook 'cider-mode-hook 'evil-cider-doc)
+  (add-hook 'cider-repl-mode-hook 'evil-cider-doc)
+
+  (general-nmap
+    :keymaps 'cider-mode-map
+    "C-x C-e" 'cider-evil-eval-last-sexp
+    "C-c C-e" 'cider-evil-eval-last-sexp)
+
+  (general-nmap
+    :keymaps '(cider-mode-map cider-repl-mode-map)
+    :prefix "SPC"
+    "d" 'cider-find-var))
