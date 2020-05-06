@@ -60,7 +60,8 @@
   :ensure t
   :init
   (add-hook 'emacs-lisp-mode-hook #'paredit-mode)
-  (add-hook 'clojure-mode-hook #'paredit-mode))
+  (add-hook 'clojure-mode-hook #'paredit-mode)
+  (add-hook 'cider-repl-mode-hook #'paredit-mode))
 
 (use-package evil-cleverparens
   :ensure t
