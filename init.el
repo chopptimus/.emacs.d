@@ -42,6 +42,11 @@
   (defalias #'forward-evil-word #'forward-evil-symbol)
   (evil-mode 1))
 
+(use-package general
+  :ensure t
+  :config
+  (general-evil-setup))
+
 (use-package helm
   :ensure t)
 
