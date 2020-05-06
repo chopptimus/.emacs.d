@@ -34,8 +34,12 @@
 (use-package evil
   :ensure t
   :init
-  (setq evil-want-C-u-scroll t)
+  (setq evil-want-C-u-scroll t
+        evil-split-window-below t
+        evil-vsplit-window-right t)
+  (setq-default evil-symbol-word-search t)
   :config
+  (defalias #'forward-evil-word #'forward-evil-symbol)
   (evil-mode 1))
 
 (use-package helm
