@@ -47,9 +47,6 @@
   :config
   (general-evil-setup))
 
-(use-package helm
-  :ensure t)
-
 (use-package magit
   :ensure t)
 
@@ -92,3 +89,8 @@
     :keymaps '(cider-mode-map cider-repl-mode-map)
     :prefix "SPC"
     "d" 'cider-find-var))
+
+(use-package ivy
+  :ensure t
+  :config
+  (ivy-mode 1))
