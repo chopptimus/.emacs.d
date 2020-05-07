@@ -98,3 +98,11 @@
   :ensure t
   :config
   (ivy-mode 1))
+
+(use-package projectile
+  :ensure t
+  :init
+  (general-nmap
+    :keymaps 'override
+    :prefix "SPC"
+    "f" 'projectile-find-file))
