@@ -31,6 +31,11 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
+(use-package general
+  :ensure t
+  :config
+  (general-evil-setup))
+
 (use-package evil
   :ensure t
   :init
@@ -38,14 +43,13 @@
         evil-split-window-below t
         evil-vsplit-window-right t)
   (setq-default evil-symbol-word-search t)
+  (general-nmap "-" 'dired-jump)
+  (general-nmap
+    :keymaps 'dired-mode-map
+    "-" 'dired-up-directory)
   :config
   (defalias #'forward-evil-word #'forward-evil-symbol)
   (evil-mode 1))
-
-(use-package general
-  :ensure t
-  :config
-  (general-evil-setup))
 
 (use-package magit
   :ensure t)
