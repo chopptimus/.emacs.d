@@ -43,10 +43,19 @@
         evil-split-window-below t
         evil-vsplit-window-right t)
   (setq-default evil-symbol-word-search t)
+
   (general-nmap "-" 'dired-jump)
+
   (general-nmap
     :keymaps 'dired-mode-map
     "-" 'dired-up-directory)
+
+  (general-mmap
+    :keymaps 'Info-mode-map
+    "n" 'evil-search-next
+    "C-n" 'Info-next
+    "C-p" 'Info-prev)
+
   :config
   (defalias #'forward-evil-word #'forward-evil-symbol)
   (evil-mode 1))
