@@ -47,6 +47,10 @@
   (general-nmap "-" 'dired-jump)
 
   (general-nmap
+    :prefix "SPC"
+    "e" 'find-file)
+
+  (general-nmap
     :keymaps 'dired-mode-map
     "-" 'dired-up-directory)
 
@@ -61,7 +65,11 @@
   (evil-mode 1))
 
 (use-package magit
-  :ensure t)
+  :ensure t
+  :init
+  (general-nmap
+    :prefix "SPC"
+    "g" 'magit))
 
 (use-package evil-magit
   :ensure t)
