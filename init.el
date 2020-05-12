@@ -123,3 +123,8 @@
     :keymaps 'override
     :prefix "SPC"
     "f" 'projectile-find-file))
+
+(use-package evil-org
+  :ensure t
+  :init
+  (add-hook 'org-mode-hook 'evil-org-mode))
