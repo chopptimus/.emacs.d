@@ -1,5 +1,4 @@
-(setq backup-directory-alist '(("." . "~/.emacs.d/backups"))
-      savehist-file "~/.emacs.d/savehist")
+(setq savehist-file "~/.emacs.d/savehist")
 (savehist-mode 1)
 
 (setq-default indent-tabs-mode nil)
