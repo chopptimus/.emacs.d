@@ -136,3 +136,7 @@
 (use-package flycheck
   :ensure t
   :init (global-flycheck-mode 1))
+
+(use-package flycheck-clj-kondo
+  :ensure t
+  :config (require 'flycheck-clj-kondo))
