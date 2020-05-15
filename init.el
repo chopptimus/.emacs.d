@@ -5,15 +5,14 @@
 
 (setq ring-bell-function 'ignore)
 (setq inhibit-startup-message t)
-(menu-bar-mode -1)
-(toggle-scroll-bar -1)
-(tool-bar-mode -1)
+(menu-bar-mode 0)
+(toggle-scroll-bar 0)
+(tool-bar-mode 0)
 (blink-cursor-mode 0)
 (show-paren-mode 1)
-(column-number-mode)
-
-(setq ido-everywhere t)
+(column-number-mode 1)
 (ido-mode 1)
+(ido-everywhere 1)
 
 (require 'package)
 (add-to-list 'package-archives
