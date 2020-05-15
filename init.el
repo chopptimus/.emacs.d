@@ -58,6 +58,12 @@
     "C-n" 'Info-next
     "C-p" 'Info-prev)
 
+  (general-mmap
+    :keymaps 'grep-mode-map
+    "n" 'evil-search-next
+    "C-n" 'next-error-no-select
+    "C-p" 'previous-error-no-select)
+
   :config
   (defalias #'forward-evil-word #'forward-evil-symbol)
   (evil-mode 1))
