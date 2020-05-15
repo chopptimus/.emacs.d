@@ -132,3 +132,7 @@
   :ensure t
   :init
   (add-hook 'org-mode-hook 'evil-org-mode))
+
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode 1))
