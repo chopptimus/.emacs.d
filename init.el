@@ -12,7 +12,6 @@
 (show-paren-mode 1)
 (column-number-mode 1)
 (ido-mode 1)
-(ido-everywhere 1)
 
 (require 'package)
 (add-to-list 'package-archives
