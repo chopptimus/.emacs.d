@@ -1,3 +1,4 @@
+(add-to-list 'load-path "~/.emacs.d/lisp")
 (setq savehist-file "~/.emacs.d/savehist")
 (savehist-mode 1)
 
@@ -87,7 +88,10 @@
 (use-package evil-cleverparens
   :ensure t
   :init
-  (add-hook 'paredit-mode-hook #'evil-cleverparens-mode))
+  (add-hook 'paredit-mode-hook #'evil-cleverparens-mode)
+  :config
+  (require 'evil-cp-cw)
+  (add-to-list 'evil-change-commands #'evil-cp-change))
 
 (defun cider-evil-eval-last-sexp ()
   (interactive)
