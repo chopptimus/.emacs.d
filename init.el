@@ -11,6 +11,7 @@
 (tool-bar-mode 0)
 (blink-cursor-mode 0)
 (show-paren-mode 1)
+(setq column-number-indicator-zero-based nil)
 (column-number-mode 1)
 (ido-mode 1)
 
