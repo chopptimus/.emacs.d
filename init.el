@@ -46,6 +46,7 @@
   (general-nmap "-" 'dired-jump)
 
   (general-nmap
+    :keymaps 'override
     :prefix "SPC"
     "e" 'find-file)
 
