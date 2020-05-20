@@ -76,7 +76,14 @@
     "g" 'magit))
 
 (use-package evil-magit
-  :ensure t)
+  :ensure t
+  :init
+  (general-nmap
+    :keymaps 'magit-mode-map
+    "C-j" nil
+    "C-k" nil
+    "C-n" 'magit-section-forward
+    "C-p" 'magit-section-backward))
 
 (use-package paredit
   :ensure t
