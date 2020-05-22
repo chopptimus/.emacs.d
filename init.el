@@ -116,6 +116,7 @@
   :init
   (add-hook 'cider-mode-hook 'evil-cider-doc)
   (add-hook 'cider-repl-mode-hook 'evil-cider-doc)
+  (evil-set-initial-state 'cider-stacktrace-mode 'motion)
 
   (general-nmap
     :keymaps 'cider-mode-map
