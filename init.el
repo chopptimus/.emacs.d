@@ -74,6 +74,7 @@
   :ensure t
   :init
   (general-nmap
+    :keymaps 'override
     :prefix "SPC"
     "g" 'magit))
 
