@@ -1,15 +1,13 @@
 (add-to-list 'load-path "~/.emacs.d/lisp")
-(setq savehist-file "~/.emacs.d/savehist")
-(savehist-mode 1)
 
 (setq-default indent-tabs-mode nil)
-
 (setq ring-bell-function 'ignore)
 (setq inhibit-startup-message t)
 (menu-bar-mode 0)
 (toggle-scroll-bar 0)
 (tool-bar-mode 0)
 (blink-cursor-mode 0)
+(savehist-mode 1)
 (show-paren-mode 1)
 (setq column-number-indicator-zero-based nil)
 (column-number-mode 1)
