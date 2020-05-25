@@ -116,15 +116,16 @@
   (add-hook 'cider-mode-hook 'evil-cider-doc)
   (add-hook 'cider-repl-mode-hook 'evil-cider-doc)
   (evil-set-initial-state 'cider-stacktrace-mode 'motion)
+
   (general-nmap
     :keymaps '(cider-mode-map cider-repl-mode-map)
     :prefix "SPC"
     "d" 'cider-find-var)
-  :config
-  (general-nmap
-    :keymaps '(cider-mode-map cider-repl-mode-map)
-    "C-x C-e" 'cider-evil-eval-last-sexp
-    "C-c C-e" 'cider-evil-eval-last-sexp))
+
+  (general-define-key
+   :keymaps 'cider-mode-map
+   "C-x C-e" 'cider-evil-eval-last-sexp
+   "C-c C-e" 'cider-evil-eval-last-sexp))
 
 (use-package ivy
   :ensure t
