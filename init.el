@@ -64,6 +64,11 @@
     "C-n" 'next-error-no-select
     "C-p" 'previous-error-no-select)
 
+  (evil-set-initial-state 'xref--xref-buffer-mode 'motion)
+  (general-mmap
+    :keymaps 'xref--xref-buffer-mode-map
+    "," 'xref-prev-line)
+
   :config
   (defalias #'forward-evil-word #'forward-evil-symbol)
   (evil-mode 1))
