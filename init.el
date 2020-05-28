@@ -64,12 +64,12 @@
     "C-n" 'next-error-no-select
     "C-p" 'previous-error-no-select)
 
-  (evil-set-initial-state 'xref--xref-buffer-mode 'motion)
   (general-mmap
     :keymaps 'xref--xref-buffer-mode-map
     "," 'xref-prev-line)
 
   :config
+  (evil-set-initial-state 'xref--xref-buffer-mode 'motion)
   (defalias #'forward-evil-word #'forward-evil-symbol)
   (evil-mode 1))
 
@@ -117,10 +117,10 @@
 
 (use-package cider
   :ensure t
+  :after evil
   :init
   (add-hook 'cider-mode-hook 'evil-cider-doc)
   (add-hook 'cider-repl-mode-hook 'evil-cider-doc)
-  (evil-set-initial-state 'cider-stacktrace-mode 'motion)
 
   (general-nmap
     :keymaps '(cider-mode-map cider-repl-mode-map)
@@ -130,7 +130,10 @@
   (general-define-key
    :keymaps 'cider-mode-map
    "C-x C-e" 'cider-evil-eval-last-sexp
-   "C-c C-e" 'cider-evil-eval-last-sexp))
+   "C-c C-e" 'cider-evil-eval-last-sexp)
+
+  :config
+  (evil-set-initial-state 'cider-stacktrace-mode 'motion))
 
 (use-package ivy
   :ensure t
