@@ -68,6 +68,10 @@
     :keymaps 'xref--xref-buffer-mode-map
     "," 'xref-prev-line)
 
+  (general-mmap
+    :keymaps 'help-mode-map
+    "TAB" 'forward-button)
+
   :config
   (evil-set-initial-state 'xref--xref-buffer-mode 'motion)
   (defalias #'forward-evil-word #'forward-evil-symbol)
