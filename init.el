@@ -112,20 +112,15 @@
   (add-to-list 'evil-change-commands #'evil-cp-change))
 
 (defun cider-evil-eval-last-sexp ()
+  "Make cider-eval-last-sexp sane in evil-mode."
   (interactive)
   (forward-char)
   (cider-eval-last-sexp)
   (backward-char))
 
-(defun evil-cider-doc ()
-  (setq-local evil-lookup-func 'cider-doc))
-
-(use-package cider
-  :ensure t
-  :after evil
-  :init
-  (add-hook 'cider-mode-hook 'evil-cider-doc)
-  (add-hook 'cider-repl-mode-hook 'evil-cider-doc)
+(defun hy-cider-mode-hook ()
+  "Helper function for cider/cider-repl mode hooks."
+  (setq-local evil-lookup-func 'cider-doc)
 
   (general-nmap
     :keymaps '(cider-mode-map cider-repl-mode-map)
@@ -135,8 +130,14 @@
   (general-define-key
    :keymaps 'cider-mode-map
    "C-x C-e" 'cider-evil-eval-last-sexp
-   "C-c C-e" 'cider-evil-eval-last-sexp)
+   "C-c C-e" 'cider-evil-eval-last-sexp))
 
+(use-package cider
+  :ensure t
+  :after evil
+  :init
+  (add-hook 'cider-mode-hook 'hy-cider-mode-hook)
+  (add-hook 'cider-repl-mode-hook 'hy-cider-mode-hook)
   :config
   (evil-set-initial-state 'cider-stacktrace-mode 'motion))
 
