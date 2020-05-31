@@ -40,6 +40,7 @@
         evil-split-window-below t
         evil-vsplit-window-right t)
   (setq-default evil-symbol-word-search t)
+  (add-hook 'org-mode-hook (lambda () (setq-local evil-auto-indent nil)))
 
   (general-nmap "-" 'dired-jump)
 
