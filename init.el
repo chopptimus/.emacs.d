@@ -36,10 +36,13 @@
 (use-package evil
   :ensure t
   :init
-  (setq evil-want-C-u-scroll t
-        evil-split-window-below t
-        evil-vsplit-window-right t)
+  (setq evil-want-integration t)
+  (setq evil-want-keybinding nil)
+  (setq evil-want-C-u-scroll t)
+  (setq evil-split-window-below t)
+  (setq evil-vsplit-window-right t)
   (setq-default evil-symbol-word-search t)
+
   (add-hook 'org-mode-hook (lambda () (setq-local evil-auto-indent nil)))
 
   (general-nmap "-" 'dired-jump)
@@ -53,30 +56,15 @@
     :keymaps 'dired-mode-map
     "-" 'dired-up-directory)
 
-  (general-mmap
-    :keymaps 'Info-mode-map
-    "n" 'evil-search-next
-    "C-n" 'Info-next
-    "C-p" 'Info-prev)
-
-  (general-mmap
-    :keymaps 'grep-mode-map
-    "n" 'evil-search-next
-    "C-n" 'next-error-no-select
-    "C-p" 'previous-error-no-select)
-
-  (general-mmap
-    :keymaps 'xref--xref-buffer-mode-map
-    "," 'xref-prev-line)
-
-  (general-mmap
-    :keymaps 'help-mode-map
-    "TAB" 'forward-button)
-
   :config
-  (evil-set-initial-state 'xref--xref-buffer-mode 'motion)
   (defalias #'forward-evil-word #'forward-evil-symbol)
   (evil-mode 1))
+
+(use-package evil-collection
+  :ensure t
+  :after evil
+  :config
+  (evil-collection-init))
 
 (use-package magit
   :ensure t
@@ -87,14 +75,7 @@
     "g" 'magit))
 
 (use-package evil-magit
-  :ensure t
-  :init
-  (general-nmap
-    :keymaps 'magit-mode-map
-    "C-j" nil
-    "C-k" nil
-    "C-n" 'magit-section-forward
-    "C-p" 'magit-section-backward))
+  :ensure t)
 
 (use-package paredit
   :ensure t
@@ -111,35 +92,8 @@
   (require 'evil-cp-cw)
   (add-to-list 'evil-change-commands #'evil-cp-change))
 
-(defun cider-evil-eval-last-sexp ()
-  "Make cider-eval-last-sexp sane in evil-mode."
-  (interactive)
-  (forward-char)
-  (cider-eval-last-sexp)
-  (backward-char))
-
-(defun hy-cider-mode-hook ()
-  "Helper function for cider/cider-repl mode hooks."
-  (setq-local evil-lookup-func 'cider-doc)
-
-  (general-nmap
-    :keymaps '(cider-mode-map cider-repl-mode-map)
-    :prefix "SPC"
-    "d" 'cider-find-var)
-
-  (general-define-key
-   :keymaps 'cider-mode-map
-   "C-x C-e" 'cider-evil-eval-last-sexp
-   "C-c C-e" 'cider-evil-eval-last-sexp))
-
 (use-package cider
-  :ensure t
-  :after evil
-  :init
-  (add-hook 'cider-mode-hook 'hy-cider-mode-hook)
-  (add-hook 'cider-repl-mode-hook 'hy-cider-mode-hook)
-  :config
-  (evil-set-initial-state 'cider-stacktrace-mode 'motion))
+  :ensure t)
 
 (use-package ivy
   :ensure t
