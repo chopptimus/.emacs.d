@@ -47,7 +47,6 @@ flycheck_*.el
 /network-security.data
 
 /auto-save-list/
-/backups/
 /savehist
 /custom.el
 /recentf

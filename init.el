@@ -12,6 +12,7 @@
 (setq column-number-indicator-zero-based nil)
 (column-number-mode 1)
 (ido-mode 1)
+(setq backup-directory-alist '(("." . "~/.emacs.d/backup/")))
 
 (require 'package)
 (add-to-list 'package-archives
