@@ -121,3 +121,10 @@
 (use-package flycheck-clj-kondo
   :ensure t
   :config (require 'flycheck-clj-kondo))
+
+(use-package cc-mode
+  :init
+  (general-nmap
+    :keymaps 'c-mode-map
+    :prefix ","
+    "m" 'compile))
