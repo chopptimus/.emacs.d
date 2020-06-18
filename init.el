@@ -127,4 +127,5 @@
   (general-nmap
     :keymaps 'c-mode-map
     :prefix ","
-    "m" 'compile))
+    "r" 'compile
+    "m" 'recompile))
