@@ -46,16 +46,20 @@
 
   (add-hook 'org-mode-hook (lambda () (setq-local evil-auto-indent nil)))
 
-  (general-nmap "-" 'dired-jump)
+  (general-nmap "-" #'dired-jump)
 
   (general-nmap
     :keymaps 'override
     :prefix "SPC"
-    "e" 'find-file)
+    "e" #'find-file)
 
   (general-nmap
     :keymaps 'dired-mode-map
-    "-" 'dired-up-directory)
+    "-" #'dired-up-directory)
+
+  (general-nmap
+    :prefix ","
+    "d" #'delete-trailing-whitespace)
 
   :config
   (defalias #'forward-evil-word #'forward-evil-symbol)
@@ -73,7 +77,7 @@
   (general-nmap
     :keymaps 'override
     :prefix "SPC"
-    "g" 'magit))
+    "g" #'magit))
 
 (use-package evil-magit
   :ensure t)
@@ -107,12 +111,12 @@
   (general-nmap
     :keymaps 'override
     :prefix "SPC"
-    "f" 'projectile-find-file))
+    "f" #'projectile-find-file))
 
 (use-package evil-org
   :ensure t
   :init
-  (add-hook 'org-mode-hook 'evil-org-mode))
+  (add-hook 'org-mode-hook #'evil-org-mode))
 
 (use-package flycheck
   :ensure t
@@ -127,5 +131,5 @@
   (general-nmap
     :keymaps 'c-mode-map
     :prefix ","
-    "r" 'compile
-    "m" 'recompile))
+    "r" #'compile
+    "m" #'recompile))
