@@ -34,6 +34,9 @@
   :config
   (general-evil-setup))
 
+(use-package diminish
+  :ensure t)
+
 (use-package evil
   :ensure t
   :init
@@ -65,6 +68,12 @@
   (defalias #'forward-evil-word #'forward-evil-symbol)
   (evil-mode 1))
 
+(use-package undo-tree
+  :diminish)
+
+(use-package autorevert
+  :diminish auto-revert-mode)
+
 (use-package evil-collection
   :ensure t
   :after evil
@@ -91,6 +100,7 @@
 
 (use-package evil-cleverparens
   :ensure t
+  :diminish
   :init
   (add-hook 'paredit-mode-hook #'evil-cleverparens-mode)
   :config
@@ -102,6 +112,7 @@
 
 (use-package ivy
   :ensure t
+  :diminish
   :config
   (ivy-mode 1))
 
@@ -115,6 +126,7 @@
 
 (use-package evil-org
   :ensure t
+  :diminish
   :init
   (add-hook 'org-mode-hook #'evil-org-mode))
 
