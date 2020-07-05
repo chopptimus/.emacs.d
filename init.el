@@ -104,7 +104,7 @@
   :init
   (add-hook 'paredit-mode-hook #'evil-cleverparens-mode)
   :config
-  (require 'evil-cp-cw)
+  (require 'evil-cleverparens-fixes)
   (add-to-list 'evil-change-commands #'evil-cp-change))
 
 (use-package cider
