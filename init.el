@@ -94,9 +94,13 @@
 (use-package paredit
   :ensure t
   :init
-  (add-hook 'emacs-lisp-mode-hook #'paredit-mode)
-  (add-hook 'clojure-mode-hook #'paredit-mode)
-  (add-hook 'cider-repl-mode-hook #'paredit-mode))
+  (let ((modes '(emacs-lisp-mode-hook
+                 clojure-mode-hook
+                 cider-repl-mode-hook
+                 fennel-mode-hook
+                 inferior-lisp-mode-hook)))
+    (dolist (hook modes)
+      (add-hook hook #'paredit-mode))))
 
 (use-package evil-cleverparens
   :ensure t
@@ -145,3 +149,11 @@
     :prefix ","
     "r" #'compile
     "m" #'recompile))
+
+(use-package fennel-mode
+  :ensure t
+  :init
+  (general-nmap
+    :keymaps 'fennel-mode-map
+    "g z" #'fennel-repl
+    "g d" #'fennel-find-definition))
