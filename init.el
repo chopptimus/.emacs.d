@@ -150,6 +150,9 @@
     "r" #'compile
     "m" #'recompile))
 
+(use-package lua-mode
+  :ensure t)
+
 (use-package fennel-mode
   :ensure t
   :init
