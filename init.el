@@ -82,11 +82,13 @@
 
 (use-package magit
   :ensure t
+  :after evil
   :init
   (general-nmap
     :keymaps 'override
     :prefix "SPC"
-    "g" #'magit))
+    "g" #'magit)
+  (evil-ex-define-cmd "Gblame" #'magit-blame-addition))
 
 (use-package evil-magit
   :ensure t)
