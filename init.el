@@ -68,6 +68,16 @@
   (defalias #'forward-evil-word #'forward-evil-symbol)
   (evil-mode 1))
 
+(evil-define-operator chp-evil-eval (beg end type)
+  :move-point nil
+  (eval-region beg end t))
+
+(use-package elisp-mode
+  :init
+  (general-mmap
+    :keymaps '(emacs-lisp-mode-map lisp-interaction-mode-map)
+    ", e" #'chp-evil-eval))
+
 (use-package undo-tree
   :diminish)
 
@@ -119,8 +129,19 @@
   (require 'evil-cleverparens-fixes)
   (add-to-list 'evil-change-commands #'evil-cp-change))
 
+(evil-define-operator chp-evil-cider-eval (beg end type)
+  :move-point nil
+  (cider-interactive-eval nil
+                          nil
+                          (list beg end)
+                          (cider--nrepl-pr-request-map)))
+
 (use-package cider
-  :ensure t)
+  :ensure t
+  :init
+  (general-mmap
+    :keymaps 'cider-mode-map
+    ", e" #'chp-evil-cider-eval))
 
 (use-package ivy
   :ensure t
