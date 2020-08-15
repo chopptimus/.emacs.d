@@ -1,3 +1,10 @@
+;;; package --- Summary
+
+;;; Commentary:
+;;; Emacs configuration
+
+;;; Code:
+
 (add-to-list 'load-path "~/.emacs.d/lisp")
 
 (setq-default indent-tabs-mode nil)
@@ -194,3 +201,6 @@
     :keymaps 'fennel-mode-map
     "g z" #'fennel-repl
     "g d" #'fennel-find-definition))
+
+(provide 'init)
+;;; init.el ends here
