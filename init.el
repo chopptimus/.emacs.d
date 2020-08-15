@@ -8,7 +8,6 @@
 (tool-bar-mode 0)
 (blink-cursor-mode 0)
 (savehist-mode 1)
-(show-paren-mode 1)
 (setq column-number-indicator-zero-based nil)
 (column-number-mode 1)
 (ido-mode 1)
@@ -28,6 +27,12 @@
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
+
+(use-package paren
+  :init
+  (setq show-paren-delay 0)
+  :config
+  (show-paren-mode 1))
 
 (use-package general
   :ensure t
