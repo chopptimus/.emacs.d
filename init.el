@@ -47,16 +47,19 @@
   (general-evil-setup))
 
 (use-package diminish
-  :ensure t)
+  :ensure t
+  :init
+  (diminish 'visual-line-mode))
 
 (use-package evil
   :ensure t
   :init
-  (setq evil-want-integration t)
-  (setq evil-want-keybinding nil)
-  (setq evil-want-C-u-scroll t)
-  (setq evil-split-window-below t)
-  (setq evil-vsplit-window-right t)
+  (setq evil-want-integration t
+        evil-want-keybinding nil
+        evil-want-C-u-scroll t
+        evil-split-window-below t
+        evil-vsplit-window-right t
+        evil-respect-visual-line-mode t)
   (setq-default evil-symbol-word-search t)
 
   (add-hook 'org-mode-hook (lambda () (setq-local evil-auto-indent nil)))
@@ -201,6 +204,12 @@
     :keymaps 'fennel-mode-map
     "g z" #'fennel-repl
     "g d" #'fennel-find-definition))
+
+(use-package visual-fill-column
+  :ensure t
+  :init
+  (general-add-hook 'text-mode-hook (list #'visual-line-mode
+                                          #'visual-fill-column-mode)))
 
 (provide 'init)
 ;;; init.el ends here
