@@ -1,4 +1,4 @@
-;;; package --- Summary
+;;; init.el --- Strong message here
 
 ;;; Commentary:
 ;;; Emacs configuration
