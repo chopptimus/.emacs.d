@@ -43,8 +43,11 @@
 
 (use-package general
   :ensure t
-  :config
-  (general-evil-setup))
+  :demand t)
+
+(general-evil-setup)
+
+(general-def 'normal "C-;" #'eval-expression)
 
 (use-package diminish
   :ensure t
@@ -121,13 +124,13 @@
 (use-package paredit
   :ensure t
   :init
-  (let ((modes '(emacs-lisp-mode-hook
-                 clojure-mode-hook
-                 cider-repl-mode-hook
-                 fennel-mode-hook
-                 inferior-lisp-mode-hook)))
-    (dolist (hook modes)
-      (add-hook hook #'paredit-mode))))
+  (general-add-hook '(emacs-lisp-mode-hook
+                      clojure-mode-hook
+                      cider-repl-mode-hook
+                      fennel-mode-hook
+                      inferior-lisp-mode-hook
+                      eval-expression-minibuffer-setup-hook)
+                    #'paredit-mode))
 
 (use-package evil-cleverparens
   :ensure t
