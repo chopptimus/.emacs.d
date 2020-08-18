@@ -205,11 +205,15 @@
     "g z" #'fennel-repl
     "g d" #'fennel-find-definition))
 
+(use-package adaptive-wrap
+  :ensure t)
+
 (use-package visual-fill-column
   :ensure t
   :init
   (general-add-hook 'text-mode-hook (list #'visual-line-mode
-                                          #'visual-fill-column-mode)))
+                                          #'visual-fill-column-mode
+                                          #'adaptive-wrap-prefix-mode)))
 
 (provide 'init)
 ;;; init.el ends here
