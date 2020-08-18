@@ -194,17 +194,6 @@
     "r" #'compile
     "m" #'recompile))
 
-(use-package lua-mode
-  :ensure t)
-
-(use-package fennel-mode
-  :ensure t
-  :init
-  (general-nmap
-    :keymaps 'fennel-mode-map
-    "g z" #'fennel-repl
-    "g d" #'fennel-find-definition))
-
 (use-package adaptive-wrap
   :ensure t)
 
