@@ -94,7 +94,9 @@
   :init
   (general-mmap
     :keymaps '(emacs-lisp-mode-map lisp-interaction-mode-map)
-    ", e" #'chp-evil-eval))
+    ", e" #'chp-evil-eval
+    "C-c C-c" #'eval-defun
+    "C-c C-k" #'eval-buffer))
 
 (use-package undo-tree
   :diminish)
