@@ -180,7 +180,35 @@
 
 (use-package flycheck
   :ensure t
-  :init (global-flycheck-mode 1))
+  :init
+  (global-flycheck-mode 1)
+  (general-add-hook 'org-mode-hook (list (lambda ()
+                                           (flycheck-mode))))
+  :config
+  (defun flycheck-mode-line-status-text (&optional status)
+    "Get a text describing STATUS for use in the mode line.
+
+STATUS defaults to `flycheck-last-status-change' if omitted or nil.
+
+This version doesn't show a mode-line entry when there are no
+checkers"
+    (let ((s (or status flycheck-last-status-change)))
+      (if (eq s `no-checker)
+          ""
+          (let ((text (pcase s
+                        ('not-checked "")
+                        ;; (`no-checker "-")
+                        ('running "*")
+                        ('errored "!")
+                        ('finished
+                         (let-alist (flycheck-count-errors
+                                     flycheck-current-errors)
+                           (if (or .error .warning)
+                               (format ":%s|%s" (or .error 0) (or .warning 0))
+                             "")))
+                        ('interrupted ".")
+                        ('suspicious "?"))))
+            (concat " " flycheck-mode-line-prefix text))))))
 
 (use-package flycheck-clj-kondo
   :ensure t
