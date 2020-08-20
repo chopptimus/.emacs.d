@@ -187,8 +187,6 @@
   :ensure t
   :init
   (global-flycheck-mode 1)
-  (general-add-hook 'org-mode-hook (list (lambda ()
-                                           (flycheck-mode))))
   :config
   (defun flycheck-mode-line-status-text (&optional status)
     "Get a text describing STATUS for use in the mode line.
