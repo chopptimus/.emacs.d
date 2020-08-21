@@ -98,7 +98,12 @@
     :keymaps '(emacs-lisp-mode-map lisp-interaction-mode-map)
     ", e" #'chp-evil-eval
     "C-c C-c" #'eval-defun
-    "C-c C-k" #'eval-buffer))
+    "C-c C-k" #'eval-buffer)
+
+  (general-define-key
+   :states '(normal insert)
+   :keymaps 'lisp-interaction-mode-map
+   "C-j" #'eval-print-last-sexp))
 
 (use-package undo-tree
   :diminish)
