@@ -65,6 +65,8 @@
         evil-respect-visual-line-mode t)
   (setq-default evil-symbol-word-search t)
 
+  (general-def "M-u" #'universal-argument)
+
   (add-hook 'org-mode-hook (lambda () (setq-local evil-auto-indent nil)))
 
   (general-nmap "-" #'dired-jump)
