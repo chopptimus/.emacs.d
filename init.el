@@ -67,26 +67,23 @@
 
   (general-def "M-u" #'universal-argument)
 
-  (add-hook 'org-mode-hook (lambda () (setq-local evil-auto-indent nil)))
-
   (general-nmap "-" #'dired-jump)
 
-  (general-nmap
-    :keymaps 'override
-    :prefix "SPC"
-    "e" #'find-file)
+  (general-nmap :keymaps 'override "SPC e" #'find-file)
 
   (general-nmap
     :keymaps 'dired-mode-map
     "-" #'dired-up-directory)
 
-  (general-nmap
-    :prefix ","
-    "d" #'delete-trailing-whitespace)
+  (general-nmap ", d" #'delete-trailing-whitespace)
 
   :config
   (defalias #'forward-evil-word #'forward-evil-symbol)
   (evil-mode 1))
+
+(use-package org
+  :init
+  (add-hook 'org-mode-hook (lambda () (setq-local evil-auto-indent nil))))
 
 (evil-define-operator chp-evil-eval (beg end type)
   :move-point nil
