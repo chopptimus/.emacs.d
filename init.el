@@ -1,4 +1,4 @@
-;;; init.el --- Strong message here
+;;; init.el --- Strong message here  -*- lexical-binding: t; -*-
 
 ;;; Commentary:
 ;;; Emacs configuration
