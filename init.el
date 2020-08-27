@@ -67,6 +67,11 @@
 
   (general-def "M-u" #'universal-argument)
 
+  (general-nmap "SPC s" #'shell-command)
+  (general-nmap "SPC p" (lambda ()
+                          (interactive)
+                          (shell-command (car shell-command-history))))
+
   (general-nmap "-" #'dired-jump)
 
   (general-nmap :keymaps 'override "SPC e" #'find-file)
