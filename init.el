@@ -240,9 +240,21 @@ checkers"
 (use-package visual-fill-column
   :ensure t
   :init
-  (general-add-hook 'text-mode-hook (list #'visual-line-mode
-                                          #'visual-fill-column-mode
-                                          #'adaptive-wrap-prefix-mode)))
+  (let ((mode-hooks (list #'visual-line-mode
+                          #'visual-fill-column-mode
+                          #'adaptive-wrap-prefix-mode)))
+    (general-add-hook 'text-mode-hook mode-hooks)
+
+    (defun toggle-visual-line-modes ()
+      (interactive)
+      (let ((x (if (symbol-value (car mode-hooks)) -1 1)))
+        (dolist (f mode-hooks)
+          (funcall f x))))
+
+    (general-nmap
+      :keymaps '(text-mode-map adoc-mode-map)
+      :prefix ","
+      "v t" #'toggle-visual-line-modes)))
 
 (provide 'init)
 ;;; init.el ends here
