@@ -237,6 +237,9 @@ checkers"
 (use-package adaptive-wrap
   :ensure t)
 
+(use-package adoc-mode
+  :ensure t)
+
 (use-package visual-fill-column
   :ensure t
   :init
