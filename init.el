@@ -49,9 +49,30 @@
 
 (general-def 'normal "C-;" #'eval-expression)
 
+(general-def "M-u" #'universal-argument)
+
+(general-nmap
+  :prefix "SPC s"
+  "s" #'shell-command
+  "a" #'async-shell-command
+  "p" (lambda ()
+        (interactive)
+        (shell-command (car shell-command-history)))
+  "o" (lambda ()
+        (interactive)
+        (async-shell-command (car shell-command-history))))
+
+(general-nmap "-" #'dired-jump)
+
+(general-nmap
+  :keymaps 'dired-mode-map
+  "-" #'dired-up-directory)
+
+(general-nmap :keymaps 'override "SPC e" #'find-file)
+
 (use-package diminish
   :ensure t
-  :init
+  :config
   (diminish 'visual-line-mode))
 
 (use-package evil
@@ -64,29 +85,6 @@
         evil-vsplit-window-right t
         evil-respect-visual-line-mode t)
   (setq-default evil-symbol-word-search t)
-
-  (general-def "M-u" #'universal-argument)
-
-  (general-nmap
-    :prefix "SPC s"
-    "s" #'shell-command
-    "a" #'async-shell-command
-    "p" (lambda ()
-          (interactive)
-          (shell-command (car shell-command-history)))
-    "o" (lambda ()
-          (interactive)
-          (async-shell-command (car shell-command-history))))
-
-  (general-nmap "-" #'dired-jump)
-
-  (general-nmap
-    :keymaps 'dired-mode-map
-    "-" #'dired-up-directory)
-
-  (general-nmap :keymaps 'override "SPC e" #'find-file)
-
-  (general-nmap ", d" #'delete-trailing-whitespace)
 
   :config
   (defalias #'forward-evil-word #'forward-evil-symbol)
