@@ -67,18 +67,24 @@
 
   (general-def "M-u" #'universal-argument)
 
-  (general-nmap "SPC s" #'shell-command)
-  (general-nmap "SPC p" (lambda ()
-                          (interactive)
-                          (shell-command (car shell-command-history))))
+  (general-nmap
+    :prefix "SPC s"
+    "s" #'shell-command
+    "a" #'async-shell-command
+    "p" (lambda ()
+          (interactive)
+          (shell-command (car shell-command-history)))
+    "o" (lambda ()
+          (interactive)
+          (async-shell-command (car shell-command-history))))
 
   (general-nmap "-" #'dired-jump)
-
-  (general-nmap :keymaps 'override "SPC e" #'find-file)
 
   (general-nmap
     :keymaps 'dired-mode-map
     "-" #'dired-up-directory)
+
+  (general-nmap :keymaps 'override "SPC e" #'find-file)
 
   (general-nmap ", d" #'delete-trailing-whitespace)
 
