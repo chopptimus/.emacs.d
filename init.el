@@ -152,15 +152,29 @@
   :diminish
   :init
   (add-hook 'paredit-mode-hook #'evil-cleverparens-mode)
+
   (general-nmap
     :keymaps 'evil-cleverparens-mode-map
     :prefix ","
     "w r" #'evil-cp-wrap-next-round
     "w s" #'evil-cp-wrap-next-square
     "w c" #'evil-cp-wrap-next-curly)
+
   :config
   (require 'evil-cleverparens-fixes)
-  (add-to-list 'evil-change-commands #'evil-cp-change))
+  (add-to-list 'evil-change-commands #'evil-cp-change)
+
+  (general-define-key
+   :states '(normal visual operator)
+   :keymaps 'evil-cleverparens-mode-map
+   "{" nil
+   "}" nil
+   "[" nil
+   "]" nil
+   "[ s" #'evil-cp-previous-opening
+   "] s" #'evil-cp-next-closing
+   "[ d" #'evil-cp-next-opening
+   "] d" #'evil-cp-previous-closing))
 
 (evil-define-operator chp-evil-cider-eval (beg end type)
   :move-point nil
