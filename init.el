@@ -127,10 +127,8 @@
   :ensure t
   :after evil
   :init
-  (general-nmap
-    :keymaps 'override
-    :prefix "SPC"
-    "g" #'magit)
+  (evil-ex-define-cmd "G" #'magit)
+  (evil-ex-define-cmd "Gstatus" #'magit)
   (evil-ex-define-cmd "Gblame" #'magit-blame-addition))
 
 (use-package evil-magit
