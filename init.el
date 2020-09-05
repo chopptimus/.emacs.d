@@ -71,6 +71,12 @@
 
 (general-nmap :keymaps 'override "SPC e" #'find-file)
 
+(general-nmap
+  :prefix "SPC n"
+  "w" #'widen
+  "d" #'narrow-to-defun
+  "x" #'sp-narrow-to-sexp)
+
 (use-package diminish
   :ensure t
   :config
@@ -93,7 +99,12 @@
 
 (use-package org
   :init
-  (add-hook 'org-mode-hook (lambda () (setq-local evil-auto-indent nil))))
+  (add-hook 'org-mode-hook (lambda () (setq-local evil-auto-indent nil)))
+  (general-nmap
+    :prefix "SPC n"
+    "s" #'org-narrow-to-subtree
+    "b" #'org-narrow-to-block
+    "e" #'org-narrow-to-element))
 
 (evil-define-operator chp-evil-eval (beg end type)
   :move-point nil
