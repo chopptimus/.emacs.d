@@ -198,7 +198,9 @@
   :init
   (general-mmap
     :keymaps 'cider-mode-map
-    ", e" #'chp-evil-cider-eval))
+    ", e" #'chp-evil-cider-eval)
+  :config
+  (require 'chp-cider-utils))
 
 (use-package ivy
   :ensure t
