@@ -17,7 +17,6 @@
 (savehist-mode 1)
 (setq column-number-indicator-zero-based nil)
 (column-number-mode 1)
-(ido-mode 1)
 (setq backup-directory-alist '(("." . "~/.emacs.d/backup/")))
 (global-eldoc-mode)
 
@@ -69,7 +68,9 @@
   :keymaps 'dired-mode-map
   "-" #'dired-up-directory)
 
-(general-nmap :keymaps 'override "SPC e" #'find-file)
+;; Prefer this to counsel-find-file
+(ido-mode 'files)
+(general-nmap :keymaps 'override "SPC e" #'ido-find-file)
 
 (general-nmap
   :prefix "SPC n"
@@ -209,6 +210,19 @@
   :diminish
   :config
   (ivy-mode 1))
+
+(use-package counsel
+  :ensure t
+  :diminish
+  :config
+  (counsel-mode))
+
+(use-package swiper
+  :ensure t
+  :init
+  (general-mmap
+    "/" #'swiper-isearch
+    "?" #'swiper-isearch-backward))
 
 (use-package projectile
   :ensure t
