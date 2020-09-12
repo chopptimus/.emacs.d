@@ -14,9 +14,9 @@
 (toggle-scroll-bar 0)
 (tool-bar-mode 0)
 (blink-cursor-mode 0)
-(savehist-mode 1)
+(savehist-mode)
 (setq column-number-indicator-zero-based nil)
-(column-number-mode 1)
+(column-number-mode)
 (setq backup-directory-alist '(("." . "~/.emacs.d/backup/")))
 (global-eldoc-mode)
 
@@ -39,7 +39,7 @@
   :init
   (setq show-paren-delay 0)
   :config
-  (show-paren-mode 1))
+  (show-paren-mode))
 
 (use-package general
   :ensure t
@@ -96,7 +96,7 @@
 
   :config
   (defalias #'forward-evil-word #'forward-evil-symbol)
-  (evil-mode 1))
+  (evil-mode))
 
 (use-package org
   :init
@@ -209,7 +209,7 @@
   :ensure t
   :diminish
   :config
-  (ivy-mode 1))
+  (ivy-mode))
 
 (use-package counsel
   :ensure t
@@ -241,7 +241,7 @@
 (use-package flycheck
   :ensure t
   :init
-  (global-flycheck-mode 1)
+  (global-flycheck-mode)
   :config
   (defun flycheck-mode-line-status-text (&optional status)
     "Get a text describing STATUS for use in the mode line.
