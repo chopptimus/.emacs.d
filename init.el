@@ -226,11 +226,17 @@
 
 (use-package projectile
   :ensure t
+  :diminish
   :init
   (general-nmap
     :keymaps 'override
     :prefix "SPC"
     "f" #'projectile-find-file))
+
+(use-package counsel-projectile
+  :ensure t
+  :config
+  (counsel-projectile-mode))
 
 (use-package evil-org
   :ensure t
