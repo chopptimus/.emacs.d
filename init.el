@@ -217,13 +217,6 @@
   :config
   (counsel-mode))
 
-(use-package swiper
-  :ensure t
-  :init
-  (general-mmap
-    "/" #'swiper-isearch
-    "?" #'swiper-isearch-backward))
-
 (use-package projectile
   :ensure t
   :diminish
