@@ -156,7 +156,12 @@
                       fennel-mode-hook
                       inferior-lisp-mode-hook
                       eval-expression-minibuffer-setup-hook)
-                    #'paredit-mode))
+                    #'paredit-mode)
+  (general-nmap
+    :keymaps 'paredit-mode-map
+    :prefix ","
+    "\S-o" #'paredit-raise-sexp
+    "@" #'paredit-splice-sexp))
 
 (use-package evil-cleverparens
   :ensure t
