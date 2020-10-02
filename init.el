@@ -202,11 +202,15 @@
 (use-package cider
   :ensure t
   :init
-  (general-mmap
+  (general-mmap :keymaps 'cider-mode-map ", e" #'chp-evil-cider-eval)
+  (general-nmap
     :keymaps 'cider-mode-map
-    :prefix ","
-    "e" #'chp-evil-cider-eval
-    "c i" #'cider-inspect-last-result)
+    :prefix ", c"
+    "i" #'cider-inspect-last-result)
+  (general-nmap
+    :keymaps 'cider-repl-mode-map
+    :prefix ", c r"
+    "c" #'cider-repl-clear-buffer)
   :config
   (require 'chp-cider-utils))
 
