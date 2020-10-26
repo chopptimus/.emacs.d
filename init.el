@@ -99,33 +99,29 @@
   (evil-mode))
 
 (use-package visual-fill-column
-  :ensure t)
+  :ensure t
+  :config
+  (define-minor-mode visual-wrap-mode
+    "Mode grouping for visually wrapping lines"
+    :lighter " VW"
+    (let ((x (if visual-wrap-mode 1 0)))
+      (visual-fill-column-mode x)
+      (visual-line-mode x)
+      (adaptive-wrap-prefix-mode x))))
 
 (use-package org
   :after visual-fill-column
   :init
-  (add-hook 'org-mode-hook (lambda () (setq-local evil-auto-indent nil)))
+  (general-add-hook
+   'org-mode-hook
+   (list #'visual-wrap-mode
+         (lambda ()
+           (setq-local evil-auto-indent nil))))
   (general-nmap
     :prefix "SPC n"
     "s" #'org-narrow-to-subtree
     "b" #'org-narrow-to-block
-    "e" #'org-narrow-to-element)
-
-  (let ((mode-hooks (list #'visual-line-mode
-                          #'visual-fill-column-mode
-                          #'adaptive-wrap-prefix-mode)))
-    (general-add-hook 'org-mode-hook mode-hooks)
-
-    (defun toggle-visual-line-modes ()
-      (interactive)
-      (let ((x (if (symbol-value (car mode-hooks)) -1 1)))
-        (dolist (f mode-hooks)
-          (funcall f x))))
-
-    (general-nmap
-      :keymaps '(text-mode-map adoc-mode-map)
-      :prefix ","
-      "v t" #'toggle-visual-line-modes)))
+    "e" #'org-narrow-to-element))
 
 (evil-define-operator chp-evil-eval (beg end type)
   :move-point nil
