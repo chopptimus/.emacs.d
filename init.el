@@ -91,7 +91,8 @@
         evil-want-C-u-scroll t
         evil-split-window-below t
         evil-vsplit-window-right t
-        evil-respect-visual-line-mode t)
+        evil-respect-visual-line-mode t
+        evil-undo-system 'undo-tree)
   (setq-default evil-symbol-word-search t)
 
   :config
@@ -141,7 +142,10 @@
    "C-j" #'eval-print-last-sexp))
 
 (use-package undo-tree
-  :diminish)
+  :ensure t
+  :diminish
+  :config
+  (global-undo-tree-mode))
 
 (use-package autorevert
   :diminish auto-revert-mode)
