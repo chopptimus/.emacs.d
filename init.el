@@ -270,6 +270,10 @@
   :ensure t
   :init
   (global-flycheck-mode)
+  (general-nmap
+    :keymaps 'flycheck-mode-map
+    "] q" #'flycheck-next-error
+    "[ q" #'flycheck-previous-error)
   :config
   (defun flycheck-mode-line-status-text (&optional status)
     "Get a text describing STATUS for use in the mode line.
