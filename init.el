@@ -219,6 +219,16 @@
                           (list beg end)
                           (cider--nrepl-pr-request-map)))
 
+(use-package clojure-mode
+  :ensure t
+  :init
+  (general-nmap
+    :keymaps 'clojure-mode-map
+    :prefix ", j"
+    "j" #'cider-jack-in
+    "c" #'cider-jack-in-cljs
+    "b" #'cider-jack-in-clj&cljs))
+
 (use-package cider
   :ensure t
   :init
