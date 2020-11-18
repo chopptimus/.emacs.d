@@ -241,6 +241,9 @@
     :keymaps 'cider-repl-mode-map
     :prefix ", c r"
     "c" #'cider-repl-clear-buffer)
+  (general-nmap
+    :keymaps 'cider-repl-mode-map
+    "g o" #'cider-repl-switch-to-other)
   :config
   (require 'chp-cider-utils))
 
