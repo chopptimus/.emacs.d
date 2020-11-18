@@ -162,7 +162,12 @@
   :init
   (evil-ex-define-cmd "G" #'magit)
   (evil-ex-define-cmd "Gstatus" #'magit)
-  (evil-ex-define-cmd "Gblame" #'magit-blame-addition))
+  (evil-ex-define-cmd "Gblame" #'magit-blame-addition)
+  (general-nmap
+    :keymaps 'magit-mode-map
+    ", c c" (lambda ()
+              (interactive)
+              (magit-run-git "commit" "-m" "Checkpoint"))))
 
 (use-package evil-magit
   :ensure t)
