@@ -19,6 +19,7 @@
 (column-number-mode)
 (setq backup-directory-alist '(("." . "~/.emacs.d/backup/")))
 (global-eldoc-mode)
+(save-place-mode)
 
 (require 'package)
 (add-to-list 'package-archives
