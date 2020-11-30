@@ -144,6 +144,10 @@
 (use-package undo-tree
   :ensure t
   :diminish
+  :init
+  (setq undo-tree-auto-save-history t
+        undo-tree-history-directory-alist
+        '(("." . "~/.emacs.d/undo-tree-history/")))
   :config
   (global-undo-tree-mode))
 
