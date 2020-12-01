@@ -237,7 +237,13 @@
     :prefix ", j"
     "j" #'cider-jack-in
     "c" #'cider-jack-in-cljs
-    "b" #'cider-jack-in-clj&cljs))
+    "b" #'cider-jack-in-clj&cljs)
+  (general-nmap
+    :keymaps 'clojure-mode-map
+    :prefix ", c"
+    "j" #'cider-connect
+    "s" #'cider-connect-cljs
+    "b" #'cider-connect-clj&cljs))
 
 (use-package cider
   :ensure t
