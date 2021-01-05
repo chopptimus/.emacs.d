@@ -123,7 +123,8 @@
     :prefix "SPC n"
     "s" #'org-narrow-to-subtree
     "b" #'org-narrow-to-block
-    "e" #'org-narrow-to-element))
+    "e" #'org-narrow-to-element)
+  (general-nmap :keymaps 'override "SPC a" 'org-agenda))
 
 (evil-define-operator chp-evil-eval (beg end type)
   :move-point nil
