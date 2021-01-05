@@ -52,17 +52,6 @@
 
 (general-def "M-u" #'universal-argument)
 
-(general-nmap
-  :prefix "SPC s"
-  "s" #'shell-command
-  "a" #'async-shell-command
-  "p" (lambda ()
-        (interactive)
-        (shell-command (car shell-command-history)))
-  "o" (lambda ()
-        (interactive)
-        (async-shell-command (car shell-command-history))))
-
 (general-nmap "-" #'dired-jump)
 
 (general-nmap
