@@ -293,7 +293,10 @@
   :ensure t
   :diminish
   :init
-  (add-hook 'org-mode-hook #'evil-org-mode))
+  (add-hook 'org-mode-hook #'evil-org-mode)
+  :config
+  (require 'evil-org-agenda)
+  (evil-org-agenda-set-keys))
 
 (use-package flycheck
   :ensure t
