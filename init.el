@@ -109,11 +109,15 @@
          (lambda ()
            (setq-local evil-auto-indent nil))))
   (general-nmap
+    :keymaps 'org-mode-map
     :prefix "SPC n"
     "s" #'org-narrow-to-subtree
     "b" #'org-narrow-to-block
     "e" #'org-narrow-to-element)
-  (general-nmap :keymaps 'override "SPC a" 'org-agenda))
+  (general-nmap
+    :prefix "SPC o"
+    "a" #'org-agenda
+    "c" #'counsel-org-capture))
 
 (evil-define-operator chp-evil-eval (beg end type)
   :move-point nil
