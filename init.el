@@ -69,9 +69,7 @@
   "x" #'sp-narrow-to-sexp)
 
 (use-package diminish
-  :ensure t
-  :config
-  (diminish 'visual-line-mode))
+  :ensure t)
 
 (use-package evil
   :ensure t
@@ -89,25 +87,8 @@
   (defalias #'forward-evil-word #'forward-evil-symbol)
   (evil-mode))
 
-(use-package visual-fill-column
-  :ensure t
-  :config
-  (define-minor-mode visual-wrap-mode
-    "Mode grouping for visually wrapping lines"
-    :lighter " VW"
-    (let ((x (if visual-wrap-mode 1 0)))
-      (visual-fill-column-mode x)
-      (visual-line-mode x)
-      (adaptive-wrap-prefix-mode x))))
-
 (use-package org
-  :after visual-fill-column
   :init
-  (general-add-hook
-   'org-mode-hook
-   (list #'visual-wrap-mode
-         (lambda ()
-           (setq-local evil-auto-indent nil))))
   (general-nmap
     :keymaps 'org-mode-map
     :prefix "SPC n"
