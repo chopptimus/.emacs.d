@@ -192,18 +192,16 @@
   :diminish
   :init
   (add-hook 'paredit-mode-hook #'evil-cleverparens-mode)
-
   (general-nmap
     :keymaps 'evil-cleverparens-mode-map
     :prefix ","
     "w r" #'evil-cp-wrap-next-round
     "w s" #'evil-cp-wrap-next-square
     "w c" #'evil-cp-wrap-next-curly)
-
+  (setq evil-cleverparens-use-regular-insert t)
   :config
   (require 'evil-cleverparens-fixes)
   (add-to-list 'evil-change-commands #'evil-cp-change)
-
   (general-define-key
    :states '(normal visual operator)
    :keymaps 'evil-cleverparens-mode-map
