@@ -18,7 +18,6 @@
 (setq column-number-indicator-zero-based nil)
 (column-number-mode)
 (setq backup-directory-alist '(("." . "~/.emacs.d/backup/")))
-(global-eldoc-mode)
 (save-place-mode)
 
 (require 'package)
