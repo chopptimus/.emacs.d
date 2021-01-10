@@ -232,6 +232,7 @@
   (general-nmap
     :keymaps 'cider-repl-mode-map
     "g o" #'cider-repl-switch-to-other)
+  (add-hook 'cider-mode-hook #'eldoc-mode) ; Shouldn't be necessary, but it is.
   :config
   (require 'chp-cider-utils))
 
