@@ -148,9 +148,6 @@
               (interactive)
               (magit-run-git "commit" "-m" "Checkpoint"))))
 
-(use-package evil-magit
-  :ensure t)
-
 (use-package paredit
   :ensure t
   :init
