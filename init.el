@@ -306,5 +306,12 @@ checkers"
   :ensure t
   :config (require 'flycheck-clj-kondo))
 
+;; On macOS Emacs can't find many user installed prorams because GUI
+;; apps are launched with a minimal set of environment variables.
+(use-package exec-path-from-shell
+  :if (eq window-system 'ns)
+  :config
+  (exec-path-from-shell-initialize))
+
 (provide 'init)
 ;;; init.el ends here
