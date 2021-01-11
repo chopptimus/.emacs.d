@@ -306,19 +306,5 @@ checkers"
   :ensure t
   :config (require 'flycheck-clj-kondo))
 
-(use-package cc-mode
-  :init
-  (general-nmap
-    :keymaps 'c-mode-map
-    :prefix ","
-    "r" #'compile
-    "m" #'recompile))
-
-(use-package adaptive-wrap
-  :ensure t)
-
-(use-package adoc-mode
-  :ensure t)
-
 (provide 'init)
 ;;; init.el ends here
