@@ -189,12 +189,27 @@
    "[ d" #'evil-cp-next-opening
    "] d" #'evil-cp-previous-closing))
 
-(evil-define-operator chp-evil-cider-eval (beg end type)
+(evil-define-operator chp-cider-eval (beg end type)
   :move-point nil
   (cider-interactive-eval nil
                           nil
                           (list beg end)
                           (cider--nrepl-pr-request-map)))
+
+(evil-define-operator chp-cider-eval-replace (beg end type)
+  :move-point nil
+  (let ((form (buffer-substring-no-properties beg end)))
+    ;; Only delete the form if the eval succeeds
+    (cider-nrepl-sync-request:eval form)
+    (delete-region beg end)
+    (cider-interactive-eval form
+                            (cider-eval-print-handler)
+                            nil
+                            (cider--nrepl-pr-request-map))))
+
+(evil-define-operator chp-cider-eval-popup (beg end type)
+  :move-point nil
+  (cider--pprint-eval-form (buffer-substring-no-properties beg end)))
 
 (use-package clojure-mode
   :ensure t
@@ -204,26 +219,18 @@
     :prefix ", j"
     "j" #'cider-jack-in
     "c" #'cider-jack-in-cljs
-    "b" #'cider-jack-in-clj&cljs)
-  (general-nmap
-    :keymaps 'clojure-mode-map
-    :prefix ", c"
-    "j" #'cider-connect
-    "s" #'cider-connect-cljs
-    "b" #'cider-connect-clj&cljs))
+    "b" #'cider-jack-in-clj&cljs))
 
 (use-package cider
   :ensure t
   :init
-  (general-mmap :keymaps 'cider-mode-map ", e" #'chp-evil-cider-eval)
-  (general-nmap
+  (general-mmap :keymaps 'cider-mode-map ", e" #'chp-cider-eval)
+  (general-mmap
     :keymaps 'cider-mode-map
     :prefix ", c"
-    "i" #'cider-inspect-last-result)
-  (general-nmap
-    :keymaps 'cider-repl-mode-map
-    :prefix ", c r"
-    "c" #'cider-repl-clear-buffer)
+    "i" #'cider-inspect-last-result
+    "r" #'chp-cider-eval-replace
+    "b" #'chp-cider-eval-popup)
   (general-nmap
     :keymaps 'cider-repl-mode-map
     "g o" #'cider-repl-switch-to-other)
