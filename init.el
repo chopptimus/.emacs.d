@@ -74,10 +74,8 @@
   :ensure t
   :init
   (setq evil-want-integration t
-        evil-want-keybinding nil
+        evil-want-keybinding nil ; evil-collection takes care of this
         evil-want-C-u-scroll t
-        evil-split-window-below t
-        evil-vsplit-window-right t
         evil-respect-visual-line-mode t
         evil-undo-system 'undo-tree)
   (setq-default evil-symbol-word-search t)
