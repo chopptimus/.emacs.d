@@ -327,7 +327,5 @@ checkers"
   (with-eval-after-load 'rust-mode
    (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
 
-(require 'chp-mu4e)
-
 (provide 'init)
 ;;; init.el ends here
