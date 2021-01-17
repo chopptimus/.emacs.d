@@ -261,9 +261,8 @@
   :diminish
   :init
   (general-nmap
-    :keymaps 'override
-    :prefix "SPC"
-    "f" #'projectile-find-file))
+    :keymaps 'projectile-mode-map
+    "SPC p" 'projectile-command-map))
 
 (use-package counsel-projectile
   :ensure t
