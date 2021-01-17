@@ -19,6 +19,7 @@
 (column-number-mode)
 (setq backup-directory-alist '(("." . "~/.emacs.d/backup/")))
 (save-place-mode)
+(recentf-mode)
 
 (require 'package)
 (add-to-list 'package-archives
@@ -57,9 +58,7 @@
   :keymaps 'dired-mode-map
   "-" #'dired-up-directory)
 
-;; Prefer this to counsel-find-file
-(ido-mode 'files)
-(general-nmap :keymaps 'override "SPC e" #'ido-find-file)
+(general-nmap :keymaps 'override "SPC e" #'find-file)
 
 (general-nmap
   :prefix "SPC n"
