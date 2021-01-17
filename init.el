@@ -58,7 +58,12 @@
   :keymaps 'dired-mode-map
   "-" #'dired-up-directory)
 
-(general-nmap :keymaps 'override "SPC e" #'find-file)
+(general-create-definer general-file
+  :keymaps 'override
+  :states 'normal
+  :prefix "SPC f")
+
+(general-file "f" #'find-file)
 
 (general-nmap
   :prefix "SPC n"
@@ -246,6 +251,8 @@
 (use-package counsel
   :ensure t
   :diminish
+  :init
+  (general-file "r" #'counsel-recentf)
   :config
   (counsel-mode))
 
