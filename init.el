@@ -65,6 +65,15 @@
 
 (general-file "f" #'find-file)
 
+(general-create-definer general-buffer
+  :keymaps 'override
+  :states 'normal
+  :prefix ", b")
+
+(general-buffer
+  "b" #'switch-to-buffer
+  "k" #'kill-buffer)
+
 (general-nmap
   :prefix "SPC n"
   "w" #'widen
