@@ -36,15 +36,68 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
+(require 'use-package)
+(setq use-package-always-ensure t
+      use-package-always-defer t)
+
+;; Core packages - loaded immediately
+
+(use-package diminish
+  :demand t)
+
+(use-package evil
+  :demand t
+  :init
+  (setq evil-want-integration t
+        evil-want-keybinding nil ; evil-collection takes care of this
+        evil-want-C-u-scroll t
+        evil-respect-visual-line-mode t
+        evil-undo-system 'undo-tree)
+  (setq-default evil-symbol-word-search t)
+  :config
+  (defalias #'forward-evil-word #'forward-evil-symbol)
+  (evil-mode))
+
+(use-package evil-collection
+  :demand t
+  :config
+  (evil-collection-init))
+
+(use-package general
+  :demand t)
+
+(use-package undo-tree
+  :demand t
+  :diminish
+  :init
+  (setq undo-tree-auto-save-history t
+        undo-tree-history-directory-alist
+        '(("." . "~/.emacs.d/undo-tree-history/")))
+  :config
+  (global-undo-tree-mode))
+
+(general-create-definer general-file
+  :keymaps 'override
+  :states 'normal
+  :prefix "SPC f")
+
+(general-file "f" #'find-file)
+
+(use-package counsel
+  :demand t
+  :general
+  (general-file "r" #'counsel-recentf)
+  :diminish
+  :config
+  (counsel-mode))
+
+;; All the following packages are deferred
+
 (use-package paren
   :init
   (setq show-paren-delay 0)
   :config
   (show-paren-mode))
-
-(use-package general
-  :ensure t
-  :demand t)
 
 (general-evil-setup)
 
@@ -57,13 +110,6 @@
 (general-nmap
   :keymaps 'dired-mode-map
   "-" #'dired-up-directory)
-
-(general-create-definer general-file
-  :keymaps 'override
-  :states 'normal
-  :prefix "SPC f")
-
-(general-file "f" #'find-file)
 
 (general-create-definer general-buffer
   :keymaps 'override
@@ -80,25 +126,8 @@
   "d" #'narrow-to-defun
   "x" #'sp-narrow-to-sexp)
 
-(use-package diminish
-  :ensure t)
-
-(use-package evil
-  :ensure t
-  :init
-  (setq evil-want-integration t
-        evil-want-keybinding nil ; evil-collection takes care of this
-        evil-want-C-u-scroll t
-        evil-respect-visual-line-mode t
-        evil-undo-system 'undo-tree)
-  (setq-default evil-symbol-word-search t)
-
-  :config
-  (defalias #'forward-evil-word #'forward-evil-symbol)
-  (evil-mode))
-
 (use-package org
-  :init
+  :general
   (general-nmap
     :keymaps 'org-mode-map
     :prefix "SPC n"
@@ -115,7 +144,8 @@
   (eval-region beg end t))
 
 (use-package elisp-mode
-  :init
+  :ensure f
+  :config
   (general-mmap
     :keymaps '(emacs-lisp-mode-map lisp-interaction-mode-map)
     ", e" #'chp-evil-eval
@@ -127,32 +157,15 @@
    :keymaps 'lisp-interaction-mode-map
    "C-j" #'eval-print-last-sexp))
 
-(use-package undo-tree
-  :ensure t
-  :diminish
-  :init
-  (setq undo-tree-auto-save-history t
-        undo-tree-history-directory-alist
-        '(("." . "~/.emacs.d/undo-tree-history/")))
-  :config
-  (global-undo-tree-mode))
-
 (use-package autorevert
   :diminish auto-revert-mode)
 
-(use-package evil-collection
-  :ensure t
-  :after evil
-  :config
-  (evil-collection-init))
-
 (use-package magit
-  :ensure t
-  :after evil
   :init
   (evil-ex-define-cmd "G" #'magit)
   (evil-ex-define-cmd "Gstatus" #'magit)
   (evil-ex-define-cmd "Gblame" #'magit-blame-addition)
+  :config
   (general-nmap
     :keymaps 'magit-mode-map
     ", c c" (lambda ()
@@ -160,7 +173,12 @@
               (magit-run-git "commit" "-m" "Checkpoint"))))
 
 (use-package paredit
-  :ensure t
+  :general
+  (general-nmap
+    :keymaps 'paredit-mode-map
+    :prefix ","
+    "\S-o" #'paredit-raise-sexp
+    "@" #'paredit-splice-sexp)
   :init
   (general-add-hook '(emacs-lisp-mode-hook
                       clojure-mode-hook
@@ -168,28 +186,17 @@
                       fennel-mode-hook
                       inferior-lisp-mode-hook
                       eval-expression-minibuffer-setup-hook)
-                    #'paredit-mode)
-  (general-nmap
-    :keymaps 'paredit-mode-map
-    :prefix ","
-    "\S-o" #'paredit-raise-sexp
-    "@" #'paredit-splice-sexp))
+                    #'paredit-mode))
 
 (use-package evil-cleverparens
-  :ensure t
   :diminish
-  :init
-  (add-hook 'paredit-mode-hook #'evil-cleverparens-mode)
+  :general
   (general-nmap
     :keymaps 'evil-cleverparens-mode-map
     :prefix ","
     "w r" #'evil-cp-wrap-next-round
     "w s" #'evil-cp-wrap-next-square
     "w c" #'evil-cp-wrap-next-curly)
-  (setq evil-cleverparens-use-regular-insert t)
-  :config
-  (require 'evil-cleverparens-fixes)
-  (add-to-list 'evil-change-commands #'evil-cp-change)
   (general-define-key
    :states '(normal visual operator)
    :keymaps 'evil-cleverparens-mode-map
@@ -200,7 +207,13 @@
    "[ s" #'evil-cp-previous-opening
    "] s" #'evil-cp-next-closing
    "[ d" #'evil-cp-next-opening
-   "] d" #'evil-cp-previous-closing))
+   "] d" #'evil-cp-previous-closing)
+  :init
+  (add-hook 'paredit-mode-hook #'evil-cleverparens-mode)
+  (setq evil-cleverparens-use-regular-insert t)
+  :config
+  (require 'evil-cleverparens-fixes)
+  (add-to-list 'evil-change-commands #'evil-cp-change))
 
 (evil-define-operator chp-cider-eval (beg end type)
   :move-point nil
@@ -225,8 +238,7 @@
   (cider--pprint-eval-form (buffer-substring-no-properties beg end)))
 
 (use-package clojure-mode
-  :ensure t
-  :init
+  :general
   (general-nmap
     :keymaps 'clojure-mode-map
     :prefix ", j"
@@ -235,8 +247,7 @@
     "b" #'cider-jack-in-clj&cljs))
 
 (use-package cider
-  :ensure t
-  :init
+  :general
   (general-mmap :keymaps 'cider-mode-map ", e" #'chp-cider-eval)
   (general-mmap
     :keymaps 'cider-mode-map
@@ -247,39 +258,28 @@
   (general-nmap
     :keymaps 'cider-repl-mode-map
     "g o" #'cider-repl-switch-to-other)
+  :init
   (add-hook 'cider-mode-hook #'eldoc-mode) ; Shouldn't be necessary, but it is.
   :config
   (require 'chp-cider-utils))
 
 (use-package ivy
-  :ensure t
   :diminish
   :config
   (ivy-mode))
 
-(use-package counsel
-  :ensure t
-  :diminish
-  :init
-  (general-file "r" #'counsel-recentf)
-  :config
-  (counsel-mode))
-
 (use-package projectile
-  :ensure t
-  :diminish
-  :init
-  (general-nmap
-    :keymaps 'projectile-mode-map
-    "SPC p" 'projectile-command-map))
+  :diminish)
+
+(general-nmap
+  :keymaps 'projectile-mode-map
+  "SPC p" 'projectile-command-map)
 
 (use-package counsel-projectile
-  :ensure t
   :config
   (counsel-projectile-mode))
 
 (use-package evil-org
-  :ensure t
   :diminish
   :init
   (add-hook 'org-mode-hook #'evil-org-mode)
@@ -288,14 +288,13 @@
   (evil-org-agenda-set-keys))
 
 (use-package flycheck
-  :ensure t
-  :init
-  (global-flycheck-mode)
+  :general
   (general-nmap
     :keymaps 'flycheck-mode-map
     "] q" #'flycheck-next-error
     "[ q" #'flycheck-previous-error)
   :config
+  (global-flycheck-mode)
   (defun flycheck-mode-line-status-text (&optional status)
     "Get a text describing STATUS for use in the mode line.
 
@@ -322,7 +321,6 @@ checkers"
             (concat " " flycheck-mode-line-prefix text))))))
 
 (use-package flycheck-clj-kondo
-  :ensure t
   :config (require 'flycheck-clj-kondo))
 
 ;; On macOS Emacs can't find many user installed prorams because GUI
@@ -332,11 +330,9 @@ checkers"
   :config
   (exec-path-from-shell-initialize))
 
-(use-package rust-mode
-  :ensure t)
+(use-package rust-mode)
 
 (use-package flycheck-rust
-  :ensure t
   :init
   (with-eval-after-load 'rust-mode
    (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
