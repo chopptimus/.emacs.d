@@ -64,7 +64,9 @@
   (evil-collection-init))
 
 (use-package general
-  :demand t)
+  :demand t
+  :config
+  (general-evil-setup))
 
 (use-package undo-tree
   :demand t
@@ -85,9 +87,9 @@
 
 (use-package counsel
   :demand t
+  :diminish
   :general
   (general-file "r" #'counsel-recentf)
-  :diminish
   :config
   (counsel-mode))
 
@@ -96,10 +98,7 @@
 (use-package paren
   :init
   (setq show-paren-delay 0)
-  :config
   (show-paren-mode))
-
-(general-evil-setup)
 
 (general-def 'normal "C-;" #'eval-expression)
 
@@ -269,15 +268,17 @@
   (ivy-mode))
 
 (use-package projectile
-  :diminish)
-
-(general-nmap
-  :keymaps 'projectile-mode-map
-  "SPC p" 'projectile-command-map)
+  :diminish
+  :init
+  (projectile-mode)
+  (general-nmap
+    :keymaps 'projectile-mode-map
+    "SPC p" 'projectile-command-map))
 
 (use-package counsel-projectile
   :config
-  (counsel-projectile-mode))
+  (with-eval-after-load 'projectile
+    (counsel-projectile-mode)))
 
 (use-package evil-org
   :diminish
@@ -326,6 +327,7 @@ checkers"
 ;; On macOS Emacs can't find many user installed prorams because GUI
 ;; apps are launched with a minimal set of environment variables.
 (use-package exec-path-from-shell
+  :ensure f
   :if (eq window-system 'ns)
   :config
   (exec-path-from-shell-initialize))
