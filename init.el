@@ -68,37 +68,20 @@
   :config
   (general-evil-setup))
 
-(use-package undo-tree
-  :demand t
-  :diminish
-  :init
-  (setq undo-tree-auto-save-history t
-        undo-tree-history-directory-alist
-        '(("." . "~/.emacs.d/undo-tree-history/")))
-  :config
-  (global-undo-tree-mode))
-
-(general-create-definer general-file
-  :keymaps 'override
-  :states 'normal
-  :prefix "SPC f")
-
-(general-file "f" #'find-file)
-
-(use-package counsel
-  :demand t
-  :diminish
-  :general
-  (general-file "r" #'counsel-recentf)
-  :config
-  (counsel-mode))
-
 ;; All the following packages are deferred
 
 (use-package paren
   :init
   (setq show-paren-delay 0)
   (show-paren-mode))
+
+(use-package undo-tree
+  :diminish
+  :init
+  (setq undo-tree-auto-save-history t
+        undo-tree-history-directory-alist
+        '(("." . "~/.emacs.d/undo-tree-history/")))
+  (global-undo-tree-mode))
 
 (general-def 'normal "C-;" #'eval-expression)
 
@@ -266,6 +249,19 @@
   :diminish
   :config
   (ivy-mode))
+
+(general-create-definer general-file
+  :keymaps 'override
+  :states 'normal
+  :prefix "SPC f")
+
+(general-file "f" #'find-file)
+
+(use-package counsel
+  :diminish
+  :init
+  (counsel-mode)
+  (general-file "r" #'counsel-recentf))
 
 (use-package projectile
   :diminish
