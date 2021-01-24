@@ -85,7 +85,7 @@
 
 (general-def 'normal "C-;" #'eval-expression)
 
-(general-def "M-u" #'universal-argument)
+(general-nmap "SPC u" #'universal-argument)
 
 (general-nmap "-" #'dired-jump)
 
