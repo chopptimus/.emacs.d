@@ -321,7 +321,7 @@ checkers"
   :init
   (require 'flycheck-clj-kondo))
 
-;; On macOS Emacs can't find many user installed prorams because GUI
+;; On macOS Emacs can't find many user installed programs because GUI
 ;; apps are launched with a minimal set of environment variables.
 (use-package exec-path-from-shell
   :ensure f
