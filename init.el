@@ -318,7 +318,8 @@ checkers"
             (concat " " flycheck-mode-line-prefix text))))))
 
 (use-package flycheck-clj-kondo
-  :config (require 'flycheck-clj-kondo))
+  :init
+  (require 'flycheck-clj-kondo))
 
 ;; On macOS Emacs can't find many user installed prorams because GUI
 ;; apps are launched with a minimal set of environment variables.
