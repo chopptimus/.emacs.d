@@ -20,6 +20,7 @@
 (setq backup-directory-alist '(("." . "~/.emacs.d/backup/")))
 (save-place-mode)
 (recentf-mode)
+(setq-default case-fold-search nil)
 
 (require 'package)
 (add-to-list 'package-archives
