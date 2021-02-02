@@ -264,6 +264,10 @@
   (counsel-mode)
   (general-file "r" #'counsel-recentf))
 
+(use-package swiper
+  :general
+  ("C-s" #'swiper))
+
 (use-package projectile
   :diminish
   :init
