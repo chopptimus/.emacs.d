@@ -162,14 +162,14 @@
     :prefix ","
     "\S-o" #'paredit-raise-sexp
     "@" #'paredit-splice-sexp)
-  :init
-  (general-add-hook '(emacs-lisp-mode-hook
-                      clojure-mode-hook
-                      cider-repl-mode-hook
-                      fennel-mode-hook
-                      inferior-lisp-mode-hook
-                      eval-expression-minibuffer-setup-hook)
-                    #'paredit-mode))
+  :ghook '(emacs-lisp-mode-hook
+           clojure-mode-hook
+           cider-repl-mode-hook
+           fennel-mode-hook
+           inferior-lisp-mode-hook
+           eval-expression-minibuffer-setup-hook
+           racket-mode-hook
+           lisp-mode-hook))
 
 (use-package evil-cleverparens
   :diminish
