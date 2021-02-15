@@ -331,7 +331,7 @@ checkers"
 (use-package exec-path-from-shell
   :ensure f
   :if (eq window-system 'ns)
-  :config
+  :init
   (exec-path-from-shell-initialize))
 
 (use-package rust-mode)
