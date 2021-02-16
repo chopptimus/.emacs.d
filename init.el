@@ -320,5 +320,25 @@
   (with-eval-after-load 'rust-mode
    (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
 
+(use-package company
+  :diminish
+  :general
+  :init
+  (global-company-mode)
+  :config
+  ;; When the company menu is active I want all insert state mappings
+  ;; to continue to function but I want C-n and C-p to act like Tab
+  ;; and S-Tab instead of invoking evil-complete-next and
+  ;; evil-complete-previous.
+  (setq company-active-map (make-sparse-keymap))
+  (general-def 'company-active-map
+    "C-n" #'company-select-next
+    "C-p" #'company-select-previous
+    "C-e" #'company-abort)
+  (add-hook 'evil-local-mode-hook
+            (lambda ()
+              (when (memq 'company-emulation-alist emulation-mode-map-alists)
+                (company-ensure-emulation-alist)))))
+
 (provide 'init)
 ;;; init.el ends here
