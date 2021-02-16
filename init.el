@@ -125,7 +125,7 @@
     "a" #'org-agenda
     "c" #'counsel-org-capture))
 
-(evil-define-operator chp-evil-eval (beg end type)
+(evil-define-operator hy/evil-eval (beg end type)
   :move-point nil
   (eval-region beg end t))
 
@@ -134,7 +134,7 @@
   :config
   (general-mmap
     :keymaps '(emacs-lisp-mode-map lisp-interaction-mode-map)
-    ", e" #'chp-evil-eval
+    ", e" #'hy/evil-eval
     "C-c C-c" #'eval-defun
     "C-c C-k" #'eval-buffer)
 
@@ -201,14 +201,14 @@
   (require 'evil-cleverparens-fixes)
   (add-to-list 'evil-change-commands #'evil-cp-change))
 
-(evil-define-operator chp-cider-eval (beg end type)
+(evil-define-operator hy/cider-eval (beg end type)
   :move-point nil
   (cider-interactive-eval nil
                           nil
                           (list beg end)
                           (cider--nrepl-pr-request-map)))
 
-(evil-define-operator chp-cider-eval-replace (beg end type)
+(evil-define-operator hy/cider-eval-replace (beg end type)
   :move-point nil
   (let ((form (buffer-substring-no-properties beg end)))
     ;; Only delete the form if the eval succeeds
@@ -219,7 +219,7 @@
                             nil
                             (cider--nrepl-pr-request-map))))
 
-(evil-define-operator chp-cider-eval-popup (beg end type)
+(evil-define-operator hy/cider-eval-popup (beg end type)
   :move-point nil
   (cider--pprint-eval-form (buffer-substring-no-properties beg end)))
 
@@ -234,20 +234,19 @@
 
 (use-package cider
   :general
-  (general-mmap :keymaps 'cider-mode-map ", e" #'chp-cider-eval)
+  (general-mmap :keymaps 'cider-mode-map ", e" #'hy/cider-eval)
   (general-mmap
     :keymaps 'cider-mode-map
     :prefix ", c"
     "i" #'cider-inspect-last-result
-    "r" #'chp-cider-eval-replace
-    "b" #'chp-cider-eval-popup)
+    "r" #'hy/cider-eval-replace
+    "b" #'hy/cider-eval-popup)
   (general-nmap
     :keymaps 'cider-repl-mode-map
     "g o" #'cider-repl-switch-to-other)
   :init
-  (add-hook 'cider-mode-hook #'eldoc-mode) ; Shouldn't be necessary, but it is.
-  :config
-  (require 'chp-cider-utils))
+  ;; Shouldn't be necessary, but it is.
+  (add-hook 'cider-mode-hook #'eldoc-mode))
 
 (use-package ivy
   :diminish
