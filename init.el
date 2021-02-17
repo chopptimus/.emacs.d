@@ -323,13 +323,12 @@
 (use-package company
   :diminish
   :general
+  (general-imap
+    "C-x C-o" #'company-manual-begin)
   :init
   (global-company-mode)
+  (setq company-idle-delay nil)
   :config
-  ;; When the company menu is active I want all insert state mappings
-  ;; to continue to function but I want C-n and C-p to act like Tab
-  ;; and S-Tab instead of invoking evil-complete-next and
-  ;; evil-complete-previous.
   (setq company-active-map (make-sparse-keymap))
   (general-def 'company-active-map
     "C-n" #'company-select-next
