@@ -147,10 +147,6 @@
   :diminish auto-revert-mode)
 
 (use-package magit
-  :init
-  (evil-ex-define-cmd "G" #'magit)
-  (evil-ex-define-cmd "Gstatus" #'magit)
-  (evil-ex-define-cmd "Gblame" #'magit-blame-addition)
   :config
   (general-nmap
     :keymaps 'magit-mode-map
