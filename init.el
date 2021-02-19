@@ -148,8 +148,7 @@
 
 (use-package magit
   :config
-  (general-nmap
-    :keymaps 'magit-mode-map
+  (general-def 'magit-mode-map
     ", c c" (lambda ()
               (interactive)
               (magit-run-git "commit" "-m" "Checkpoint"))))
