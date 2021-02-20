@@ -334,5 +334,18 @@
               (when (memq 'company-emulation-alist emulation-mode-map-alists)
                 (company-ensure-emulation-alist)))))
 
+(use-package dabbrev
+  :config
+  (setq dabbrev-case-fold-search nil))
+
+(use-package pdabbrev
+  :ensure nil
+  :init
+  (require 'pdabbrev)
+  (general-imap
+    "C-n" #'pdabbrev-expand-next
+    "C-p" #'pdabbrev-expand-previous
+    "C-e" #'pdabbrev-abort))
+
 (provide 'init)
 ;;; init.el ends here
