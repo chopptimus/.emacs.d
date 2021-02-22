@@ -58,6 +58,8 @@ Bigger numbers will impact performance."
   (and (pdabbrev--pdabbrev-command-p last-command)
        pdabbrev--candidates))
 
+(fset 'pdabbrev-expansion-active-p #'pdabbrev--expansion-active-p)
+
 (defun pdabbrev--dabbrev-candidates (abbrev candidates n)
   "Add to a list of dabbrev CANDIDATES.
 

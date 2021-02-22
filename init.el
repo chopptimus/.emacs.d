@@ -344,10 +344,17 @@
   :ensure nil
   :init
   (require 'pdabbrev)
+
+  (defun hy/padabbrev-abort-or-C-e ()
+    (interactive)
+    (call-interactively (if (pdabbrev-expansion-active-p)
+                            #'pdabbrev-abort
+                          #'evil-copy-from-below)))
+
   (general-imap
     "C-n" #'pdabbrev-expand-next
     "C-p" #'pdabbrev-expand-previous
-    "C-e" #'pdabbrev-abort))
+    "C-e" #'hy/padabbrev-abort-or-C-e))
 
 (provide 'init)
 ;;; init.el ends here
