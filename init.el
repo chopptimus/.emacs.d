@@ -338,6 +338,8 @@
   :config
   (setq dabbrev-case-fold-search nil))
 
+(use-package popup)
+
 (use-package pdabbrev
   :ensure nil
   :init
